@@ -21,19 +21,20 @@
             <div class="search-container" id="search-container">
                 <input type="text" id="search-box" placeholder="Search..">
                 <ul id="search-results"></ul>
-                <button id="confirm-button">Add</button>
+                <button id="confirm-button" class="button">Add</button>
             </div>
 
+
             <div class="sentence-text" id="sentence-text" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+            <button onclick="alertTest()" class="button" id="readSentence">Read sentence</button>
 
             <div class="punc-container" id="punc-container">
                 <p>Period</p>
                 <div class="word" id="period" draggable="true" ondragstart="drag(event)" width="100" height="100">.</div>
             </div>
 
-            <div class="trashcan-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <img src="images/trash.png" class="trashcan" draggable="false"></img>
-            </div>
+                <img src="images/trash.png" class="trashcan" ondrop="drop(event)" ondragover="allowDrop(event)" onclick="clearSentenceBox()"></img>
         </div>
 
         <div class="nouns" ondrop="drop(event)" ondragover="allowDrop(event)">
