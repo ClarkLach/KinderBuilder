@@ -10,13 +10,30 @@
     <link rel="manifest" href="favicon/site.webmanifest">
 </head>
     <body>
-        <div class="bank" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class="sight" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div class="title">Sight Words</div>
-            <img id=6 src="images/smile.png" draggable="true" ondragstart="drag(event)" width="100" height=auto>
         </div>
 
-        <div class="sentence" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class="sentence" id="sentence">
+
             <div class="title">Sentence Builder</div>
+
+            <div class="search-container" id="search-container">
+                <input type="text" id="search-box" placeholder="Search..">
+                <ul id="search-results"></ul>
+                <button id="confirm-button">Add</button>
+            </div>
+
+            <div class="sentence-text" id="sentence-text" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+            <div class="punc-container" id="punc-container">
+                <p>Period</p>
+                <div class="word" id="period" draggable="true" ondragstart="drag(event)" width="100" height="100">.</div>
+            </div>
+
+            <div class="trashcan-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <img src="images/trash.png" class="trashcan" draggable="false"></img>
+            </div>
         </div>
 
         <div class="nouns" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -25,6 +42,11 @@
 
 
         <script src="script.js"></script> 
+
+        <!--
+            The smile:
+            <img id=6 src="images/smile.png" draggable="true" ondragstart="drag(event)" width="100" height=auto>
+        -->
 
     </body>
 </html>
