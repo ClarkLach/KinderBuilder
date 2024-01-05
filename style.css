@@ -7,10 +7,10 @@ body {
 .title {
     font-size: 20px;
     font-weight: bold;
-    border-bottom: 2px solid;
+    border-bottom: 2px solid black;
     text-align: center;
     margin: auto;
-    width: 50%;
+    width: 85%;
     padding: 5px;
 }
 
@@ -32,9 +32,10 @@ body {
     display: inline-block;
     width: 50%;
     height: 100%;
+    border-left: 1px solid black;
 }
 
-.pics {
+.nouns {
     position: absolute;
     top: 0%;
     right: 0%;
@@ -42,6 +43,7 @@ body {
     width: 25%;
     height: 100%;
     display: inline-block;
+    border-left: 1px solid black;
 }
 
 .word {
@@ -52,4 +54,9 @@ body {
     border-radius: 10px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     cursor: default;
+}
+
+.word:hover {
+    background-color: rgb(54, 196, 243);
+    outline: 2px solid black;
 }

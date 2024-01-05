@@ -20,7 +20,7 @@ function drop(ev) {
     }
 }
 
-const dataList = [
+const nouns = [
     'Hello',
     'World',
     'Goodbye',
@@ -40,9 +40,53 @@ const dataList = [
     // Add more items as needed
 ];
 
+const sight_words = [
+    'a',
+    'and',
+    'away',
+    'big',
+    'blue',
+    'can',
+    'come',
+    'down',
+    'find',
+    'for',
+    'funny',
+    'go',
+    'help',
+    'here',
+    'I',
+    'in',
+    'is',
+    'it',
+    'jump',
+    'little',
+    'look',
+    'make',
+    'me',
+    'my',
+    'not',
+    'one',
+    'play',
+    'red',
+    'run',
+    'said',
+    'see',
+    'the',
+    'three',
+    'to',
+    'two',
+    'up',
+    'we',
+    'where',
+    'yellow',
+    'you',
+    // Add more items as needed
+];
+
 // Function to create and append div elements
-function createDivs() {
-    const container = document.querySelector('.bank'); // bank is the class name of the container
+function createDivs(category, dataList) {
+    const container = document.querySelector(category); // bank is the class name of the container
 
     dataList.forEach((content, index) => { // Loop through dataList to create divs
         const div = document.createElement('div');
@@ -58,4 +102,5 @@ function createDivs() {
     });
 }
 
-createDivs();
+createDivs(".nouns", nouns);
+createDivs(".bank", sight_words);
