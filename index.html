@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentence Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+    <body>
+        <div class="bank" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="title">Word Bank</div>
+            <div id=1 class="word" draggable="true" ondragstart="drag(event)">Hello</div>
+            <div id=2 class="word" draggable="true" ondragstart="drag(event)">World</div>
+            <div id=3 class="word" draggable="true" ondragstart="drag(event)">Goodbye</div>
+            <div id=4 class="word" draggable="true" ondragstart="drag(event)">Welcome</div>
+            <div id=5 class="word" draggable="true" ondragstart="drag(event)">Thank you</div>
+            <div id=7 class="word" draggable="true" ondragstart="drag(event)">Blah</div> 
+        </div>
+
+        <div class="sentence" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="title">Sentence Builder</div>
+        </div>
+
+        <div class="pics" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="title">Pictures</div>
+            <img id=6 src="smile.png" draggable="true" ondragstart="drag(event)" width="100" height=auto>
+        </div>
+
+
+        <script src="script.js"></script> 
+
+    </body>
+</html>
