@@ -16,4 +16,10 @@ Mess around with React which will hopefully make this a bit easier
 
 Dolch Sight words specifically.
 
-Dream Goals: Some sort of grammar checking. I'm sure there's a million ways to do this, but how can I do it creatively that will benefit a 5-year-old? Categories of nouns.
+Manually add words, either create and drag in, or drag in empty box that can be typed in
+
+Dream Goals: 
+
+Some sort of grammar checking. I'm sure there's a million ways to do this, but how can I do it creatively that will benefit a 5-year-old? 
+
+Categories of nouns.
