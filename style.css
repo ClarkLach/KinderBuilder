@@ -1,3 +1,9 @@
+body {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
 .title {
     font-size: 20px;
     font-weight: bold;
@@ -10,7 +16,7 @@
 
 .bank {
     position: absolute;
-    background-color: lightgray;
+    background-color: lightpink;
     top: 0%;
     left: 0%;
     display: inline-block;
