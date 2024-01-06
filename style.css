@@ -59,7 +59,7 @@ body {
     margin: 5px;
     display: inline-block;
     border-radius: 4px;
-    outline: 1px solid black;
+    border: 1px solid black;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     cursor: default;
     width: fit-content;
@@ -67,7 +67,6 @@ body {
 }
 
 .word:active {
-    opacity: 100%;
     border: 2px dashed #000;
 
 }
@@ -77,14 +76,14 @@ body {
     outline: 2px solid black;
 }
 
-.sentence-text {
+#sentence-text {
     background-color: lightgrey;
     display: inline-block;
     width: 100%;
     min-height: 10%;
     height: fit-content;
     position: absolute;
-    top: 50%;
+    top: 30%;
     outline: 1px solid black;  
 }
 
@@ -124,7 +123,7 @@ body {
 
 .trashcan {
     width: 50px;
-    height: 50px;
+    height: auto;
     bottom: 0;
     left: 25%;
     position: absolute;

@@ -10,44 +10,38 @@
     <link rel="manifest" href="favicon/site.webmanifest">
 </head>
     <body>
-        <div class="sight" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class="sight">
             <div class="title">Sight Words</div>
         </div>
 
         <div class="sentence" id="sentence">
-
             <div class="title">Sentence Builder</div>
 
-            <div class="search-container" id="search-container">
-                <input type="text" id="search-box" placeholder="Search..">
+            <div class="search-container">
+                <input type="text" id="search-box" placeholder="Type a word..">
                 <ul id="search-results"></ul>
-                <button id="confirm-button" class="button">Add</button>
+                <button class="button" id="confirm-button">Add</button>
             </div>
 
 
-            <div class="sentence-text" id="sentence-text" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="sentence-text"></div>
 
-            <button onclick="alertTest()" class="button" id="readSentence">Read sentence</button>
+            <button class="button" id="readSentence" onclick="alertTest()">Read sentence</button>
 
-            <div class="punc-container" id="punc-container">
+            <div class="punc-container">
                 <p>Period</p>
-                <div class="word" id="period" draggable="true" ondragstart="drag(event)" width="100" height="100">.</div>
+                <div class="word" id="period">.</div>
             </div>
 
-                <img src="images/trash.png" class="trashcan" ondrop="drop(event)" ondragover="allowDrop(event)" onclick="clearSentenceBox()"></img>
+            <img src="images/trash.png" class="trashcan" onclick="clearSentenceBox()"></img>
         </div>
 
-        <div class="nouns" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class="nouns">
             <div class="title">Nouns</div>
         </div>
 
 
         <script src="script.js"></script> 
-
-        <!--
-            The smile:
-            <img id=6 src="images/smile.png" draggable="true" ondragstart="drag(event)" width="100" height=auto>
-        -->
 
     </body>
 </html>
