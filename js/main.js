@@ -54,11 +54,14 @@ function createWordDivsFromArray(category, dataList) {
 // Click action for word divs
 document.addEventListener('click', function (event) {
     if (event.target.className === 'word') {
-        const word = event.target.cloneNode(true);
+        let word = event.target.cloneNode(true);
         word.classList.add('in-sentence');
         const sentenceBox = document.getElementById('sentence-text');
 
-        //word.setAttribute('draggable', 'true');
+        if (sentenceBox.children.length === 0) {
+            word.textContent = word.textContent.charAt(0).toUpperCase() + word.textContent.slice(1);
+        };
+
         sentenceBox.appendChild(word);
         scrollToBottom();
     }
