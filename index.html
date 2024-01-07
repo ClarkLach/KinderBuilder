@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Sentence Builder</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -29,8 +29,9 @@
             <button class="button" id="readSentence" onclick="alertTest()">Read sentence</button>
 
             <div class="punc-container">
-                <p>Period</p>
                 <div class="word" id="period">.</div>
+                <div class="word" id="question">?</div>
+                <div class="word" id="exclamation">!</div>
             </div>
 
             <img src="images/trash.png" class="trashcan" onclick="clearSentenceBox()"></img>
@@ -41,7 +42,7 @@
         </div>
 
 
-        <script src="script.js"></script> 
+        <script src="scripts/script.js"></script> 
 
     </body>
 </html>

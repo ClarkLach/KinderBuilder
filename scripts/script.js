@@ -1,3 +1,4 @@
+// Word arrays
 const nouns = [
     "acorn", "apple", "ball", "butterfly",
     "cat", "cloud", "dolphin", "dog",
@@ -12,25 +13,31 @@ const nouns = [
 ];
 
 const sight_words = [
-    "all", "am", "are", "at",
-    "ate", "be", "black", "brown",
-    "but", "came", "did", "do",
-    "eat", "four", "get", "good",
-    "have", "he", "into", "like",
-    "must", "new", "no", "now",
-    "on", "our", "out", "please",
-    "pretty", "ran", "ride", "saw",
-    "say", "she", "so", "soon",
-    "that", "there", "they", "this",
-    "too", "under", "want", "was",
-    "well", "went", "what", "white",
-    "who", "will", "with", "yes"
-];
+    "all", "am", "an", "and", "are", "as", "at", "ate", "be", "big",
+    "black", "brown", "but", "can", "came", "come", "could", "did", "do", "down",
+    "eat", "for", "four", "from", "get", "go", "good", "have", "he", "here",
+    "how", "I", "in", "into", "is", "it", "know", "like", "little", "look",
+    "make", "me", "more", "must", "my", "new", "no", "not", "now", "of",
+    "on", "one", "or", "other", "our", "out", "over", "play", "please", "pretty",
+    "ran", "ride", "said", "saw", "say", "see", "she", "so", "some", "soon",
+    "that", "the", "their", "there", "these", "they", "this", "time", "to", "too",
+    "two", "under", "up", "want", "was", "we", "went", "were", "what", "when",
+    "where", "white", "who", "will", "with", "yes", "you", "your"
+  ];
+  
 
+// Function to clear sentence box when clicking trash icon
 function clearSentenceBox() {
     const sentenceBox = document.getElementById('sentence-text');
     sentenceBox.innerHTML = '';
-};
+}
+
+// Function to make new words always visible
+function scrollToBottom() {
+    var sentenceDiv = document.getElementById("sentence-text");
+    sentenceDiv.scrollTop = sentenceDiv.scrollHeight;
+    return;
+}
 
 // Function to create initial word div elements
 function createWordDivsFromArray(category, dataList) {
@@ -44,18 +51,18 @@ function createWordDivsFromArray(category, dataList) {
     });
 }
 
-createWordDivsFromArray(".nouns", nouns);
-createWordDivsFromArray(".sight", sight_words);
-
-
 // Click action for word divs
 document.addEventListener('click', function (event) {
-    if (event.target.className === 'word' && !(event.target.parentElement.id === 'sentence-text')) {
+    if (event.target.className === 'word') {
         const word = event.target.cloneNode(true);
+        word.classList.add('in-sentence');
         const sentenceBox = document.getElementById('sentence-text');
+
+        //word.setAttribute('draggable', 'true');
         sentenceBox.appendChild(word);
+        scrollToBottom();
     }
-    if (event.target.className === 'word' && event.target.parentElement.id === 'sentence-text') {
+    if (event.target.className === 'word in-sentence') {
         event.target.remove();
     }
 });
@@ -114,10 +121,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const content = word;
         if (content.trim() !== '') {
             const div = document.createElement('div');
-            div.className = 'word';
+            div.className = 'word in-sentence';
             div.textContent = content;
             outputContainer.appendChild(div);
+            scrollToBottom();
             searchBox.value = ''; // Clear the search box after creating the div
+            searchResults.style.display = 'none';
         }
     }
 
@@ -127,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
 
 function alertTest() {
 
@@ -143,3 +151,6 @@ function alertTest() {
         alert(sentenceArr.join(' '));
     };
 };
+
+createWordDivsFromArray(".nouns", nouns);
+createWordDivsFromArray(".sight", sight_words);
