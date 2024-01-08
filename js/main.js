@@ -53,21 +53,23 @@ function createWordDivsFromArray(category, dataList) {
 
 // Click action for word divs
 document.addEventListener('click', function (event) {
+    const sentenceBox = document.getElementById('sentence-text');
+
     if (event.target.className === 'word') {
         let word = event.target.cloneNode(true);
         word.classList.add('in-sentence');
-        const sentenceBox = document.getElementById('sentence-text');
-
-        if (sentenceBox.children.length === 0) {
-            word.textContent = word.textContent.charAt(0).toUpperCase() + word.textContent.slice(1);
-        };
-
         sentenceBox.appendChild(word);
         scrollToBottom();
     }
+
     if (event.target.className === 'word in-sentence') {
         event.target.remove();
     }
+
+    if (sentenceBox.children.length !== 0) {
+        sentenceBox.children[0].textContent = sentenceBox.children[0].textContent.charAt(0).toUpperCase() + sentenceBox.children[0].textContent.slice(1);
+    }
+    
 });
 
 
@@ -77,6 +79,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchResults = document.getElementById('search-results');
     const confirmButton = document.getElementById('confirm-button');
     const outputContainer = document.getElementById('sentence-text');
+    const user = localStorage.getItem("userName");
+    console.log("Retrieved user from localStorage:", user);
+    document.getElementById("userNamePlaceholder").textContent = user;
 
     searchBox.addEventListener('input', function () {
         const searchTerm = searchBox.value.toLowerCase();
@@ -144,6 +149,7 @@ function alertTest() {
 
     let sentenceArr = [];
     let sentence_text = document.getElementById('sentence-text');
+    const user = localStorage.getItem("userName");
 
     for (let i = 0; i < sentence_text.children.length; i++) {
         // Access each child element
@@ -151,7 +157,7 @@ function alertTest() {
     };
 
     if (sentenceArr.length > 0) {
-        alert(sentenceArr.join(' '));
+        alert(user + ":\n\n" + sentenceArr.join(' '));
     };
 };
 
