@@ -24,15 +24,17 @@ const sight_words = [
     "two", "under", "up", "want", "was", "we", "went", "were", "what", "when",
     "where", "white", "who", "will", "with", "yes", "you", "your"
   ];
-  
 
 // Function to clear sentence box when clicking trash icon
+const trashcan = document.getElementById('trashcan');
+trashcan.addEventListener('click', clearSentenceBox);
 function clearSentenceBox() {
     const sentenceBox = document.getElementById('sentence-text');
     sentenceBox.innerHTML = '';
+    return;
 }
 
-// Function to make new words always visible
+// Function to make new words always visible when div overflows
 function scrollToBottom() {
     var sentenceDiv = document.getElementById("sentence-text");
     sentenceDiv.scrollTop = sentenceDiv.scrollHeight;
@@ -144,6 +146,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+const button = document.getElementById('readSentence');
+button.addEventListener('click', alertTest);
 
 function alertTest() {
 
