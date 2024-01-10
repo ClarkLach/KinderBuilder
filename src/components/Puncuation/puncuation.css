@@ -1,0 +1,9 @@
+.puncuation-container {
+  bottom: 20%;
+  left: 25%;
+  position: absolute;
+  display: flex;
+}
+.puncuation-container .word {
+  font-size: 2em;
+}

@@ -1,50 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sentence Builder</title>
-    <link rel="stylesheet" href="src/index.css">
     <link rel="apple-touch-icon" sizes="180x180" href="src/assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="src/assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="src/assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="src/assets/favicon/site.webmanifest">
 </head>
-    <body>
-        <div class="sight">
-            <div class="title">Sight Words</div>
-        </div>
+    <body class="body">
+        <div id="root"></div>
 
-        <div class="sentence" id="sentence">
-            <div class="title">Sentence Builder</div>
-
-            <div class="search-container">
-                <h1>Welcome, <span id="userNamePlaceholder"></span>!</h1>
-                <input type="text" id="search-box" placeholder="Type a word..">
-                <ul id="search-results"></ul>
-                <button class="button" id="confirm-button">Add</button>
-            </div>
-
-            <div id="sentence-text"></div>
-
-            <button class="button" id="readSentence">Read sentence</button>
-
-            <div class="punc-container">
-                <div class="word" id="period">.</div>
-                <div class="word" id="question">?</div>
-                <div class="word" id="exclamation">!</div>
-            </div>
-
-            <img src="src/assets/trash.png" class="trashcan" id="trashcan"></img>
-        </div>
-
-        <div class="nouns">
-            <div class="title">Nouns</div>
-        </div>
-
-
-        <script type="module" src="/src/main.jsx"></script>
+        <script type="module" src="./src/main.jsx"></script>
 
     </body>
 </html>

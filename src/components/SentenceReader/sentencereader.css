@@ -1,0 +1,9 @@
+#sentencereader {
+  bottom: 0;
+  right: 5%;
+  position: absolute;
+  text-align: center;
+  padding: 20px 50px;
+  margin-bottom: 0%;
+  font-size: 2em;
+}
