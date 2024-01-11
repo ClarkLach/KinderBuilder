@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import "./App.css";
-import SightWords, {sight_words} from "./components/Words/SightWords";
+import "./index.css";
+import { sight_words } from "./components/Words/SightWords";
 import Nouns, { nouns } from "./components/Words/Nouns";
 import Search from "./components/Search/Search";
 import Trashcan from "./components/Trashcan/Trashcan";
@@ -9,6 +8,24 @@ import SentenceText from "./components/SentenceText/SentenceText";
 import WelcomeUser from "./components/WelcomeUser/WelcomeUser";
 import Puncuation from "./components/Puncuation/Puncuation";
 import SentenceReader from "./components/SentenceReader/SentenceReader";
+
+import {
+  DndContext,
+  closestCenter,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  DragOverlay,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  rectSortingStrategy,
+  SortableContext,
+} from "@dnd-kit/sortable";
+
+import { Draggable } from "./components/Words/Draggable";
+import { Droppable } from "./components/Words/Droppable";
 
 function App() {
   // Adding/Removing words from sentence
@@ -35,16 +52,50 @@ function App() {
     return sorted_words;
   }
 
+  // Drag and Drop Functionality
+  const [dndSightWords] = useState(sight_words);
+  const [dndNouns] = useState(nouns);
+  const [activeId, setActiveId] = useState(null);
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  });
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  });
+  const sensors = useSensors(mouseSensor, touchSensor);
+
+  function handleDragStart(event) {
+    setActiveId(event.active.id);
+  }
+
+  function handleDragEnd() {
+    setActiveId(null);
+  }
+
   return (
     <>
-      <div>
-        <SightWords onWordClick={addWordToSentence} />
+      <DndContext
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        >
+      <div className="sightwords">
+        <div className="title">Sight Words</div>
+          {dndSightWords.map((id) => (
+            <Draggable key={id} id={id} onWordClick={addWordToSentence}/>
+          ))}
       </div>
       <div className="sentencebuilder">
-        <div className="title">Sentence Builder</div>
+        <div className="title">KinderBuilder</div>
         <WelcomeUser />
-        <Search words={getWords()} onChange={addWordToSentence}/>
+        <Search words={getWords()} onChange={addWordToSentence} />
+
         <SentenceText sentence={sentence} onWordClick={removeWord} />
+
         <Puncuation onWordClick={addWordToSentence} />
         <SentenceReader sentence={sentence} />
         <Trashcan clearSentence={clearSentence} />
@@ -52,6 +103,7 @@ function App() {
       <div>
         <Nouns onWordClick={addWordToSentence} />
       </div>
+      </DndContext>
     </>
   );
 }

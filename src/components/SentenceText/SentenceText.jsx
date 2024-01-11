@@ -1,8 +1,16 @@
+import React, { useRef, useEffect } from "react";
 import "./sentencetext.css";
 
 function SentenceText({ sentence, onWordClick }) {
+  const sentenceTextRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll to the bottom when the component mounts or when the sentence changes
+    sentenceTextRef.current.scrollTop = sentenceTextRef.current.scrollHeight;
+  }, [sentence]);
+
   return (
-    <div className="sentence-text">
+    <div className="sentence-text" ref={sentenceTextRef}>
       {sentence.map((item, index) => (
         <div
           key={item + Math.random()}

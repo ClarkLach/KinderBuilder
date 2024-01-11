@@ -8,12 +8,15 @@ function SentenceReader({ sentence }) {
     sentence.forEach((word, index) => {
       if (index === 0) {
         formattedSentence.push(word.charAt(0).toUpperCase() + word.slice(1));
-      } else {
+      } else if (['.', '?', '!'].includes(word.slice(-1))) {
+        // If the current word ends with ".", "?", or "!", concatenate it without space
         formattedSentence.push(word);
+      } else {
+        formattedSentence.push(" " + word);
       }
     });
-
-    alert(user + ":\n\n" + formattedSentence.join(" "));
+  
+    alert(user + ":\n\n" + formattedSentence.join(""));
   }
 
   return (
