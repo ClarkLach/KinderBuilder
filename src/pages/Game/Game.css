@@ -32,6 +32,21 @@
   height: 100%;
   display: inline-block;
   border-left: 1px solid black;
+  z-index: -1;
+}
+
+.sentence-text {
+  background-color: lightgrey;
+  display: inline-block;
+  width: 100%;
+  min-height: 10%;
+  max-height: 30%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: fit-content;
+  position: absolute;
+  top: 36%;
+  outline: 1px solid black;
 }
 
 .button {

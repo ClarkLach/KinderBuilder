@@ -1,3 +1,5 @@
+// Gonna use a single file to store all the sight words
+
 export const sight_words = [
     "all", "am", "an", "and", "are", "as", "at", "ate", "be", "big",
     "black", "brown", "but", "can", "came", "come", "could", "did", "do", "down",

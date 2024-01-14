@@ -7,25 +7,6 @@ const Start = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Check for name when the page loads
-    checkForName(userName);
-  }, [userName]);
-
-  const handleNameChange = (event) => {
-    const newName = event.target.value;
-    setUserName(newName);
-    checkForName(newName);
-  };
-
-  const handlePlayClick = () => {
-    if (!isButtonDisabled) {
-      localStorage.setItem("userName", userName);
-      // Navigate to "/game"
-      navigate("/game");
-    }
-  };
-
   const checkForName = (name) => {
     if (name.length > 0) {
       setIsButtonDisabled(false);
@@ -34,6 +15,21 @@ const Start = () => {
     }
   };
 
+  const handleNameChange = (event) => {
+    const newName = event.target.value;
+    setUserName(newName);
+    checkForName(newName);
+  };
+
+  // Click button action
+  const handlePlayClick = () => {
+    if (!isButtonDisabled) {
+      localStorage.setItem("userName", userName);
+      navigate("/game");
+    }
+  };
+
+  // Lets you press enter to submit as well
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && userName.length > 0) {
       handlePlayClick();
@@ -58,7 +54,7 @@ const Start = () => {
         onClick={handlePlayClick}
         disabled={isButtonDisabled}
       >
-        Play
+        Play!
       </button>
     </div>
   );

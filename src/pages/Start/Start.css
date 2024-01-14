@@ -44,6 +44,10 @@
     outline: 1px solid #000;
 }
 
+.button.disabled:active {
+    outline: none;
+}
+
 .button.disabled:hover {
     cursor: not-allowed;
 }

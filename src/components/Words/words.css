@@ -17,11 +17,7 @@
   }
   
   .word:active {
-    outline: 2px dashed #000000;
-  }
-  
-  .word.in-sentence {
-    background-color: rgb(207, 207, 207);
+    background-color: rgb(16, 187, 244);
   }
   
   .word.in-sentence:hover {
@@ -34,11 +30,8 @@
     left: 0%;
     background-color: #f5f5f5;
     width: 25%;
-    max-width: 25%;
     height: 100%;
-    display: inline-block;
     overflow-y: auto;
-    overflow-x: hidden;
   }
   
   .nouns {
@@ -48,7 +41,6 @@
     background-color: #f5f5f5;
     width: 25%;
     height: 100%;
-    display: inline-block;
     border-left: 1px solid black;
     overflow-y: auto;
 }
