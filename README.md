@@ -9,6 +9,7 @@ I also hope to use a database for analytics, login, and control over the content
 To-Do (1/14/23): 
 
 Design-related:
+
 Fix sorting words withing sentence, maybe remove dragging sight words/nouns.
 
 Admin view to change words, export completed sentences
