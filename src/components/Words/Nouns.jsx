@@ -40,20 +40,3 @@ export const nouns = [
   "yo-yo",
   "zebra",
 ];
-
-const Nouns = ({ onWordClick }) => {
-  return (
-    <div className="nouns">
-      <div className="title">Nouns</div>
-      <div className="wordcontainer">
-        {nouns.map((item) => (
-          <div key={item} className="word" onClick={() => onWordClick(item)}>
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default Nouns;

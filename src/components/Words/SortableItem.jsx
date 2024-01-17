@@ -10,7 +10,7 @@ export function SortableItem(props) {
     setNodeRef,
     transform,
     transition,
-  } = useSortable({id: props.word});
+  } = useSortable({id: props.value});
   
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -18,7 +18,7 @@ export function SortableItem(props) {
   };
 
   listeners.onClick = () => {
-    const index = props.sentence.indexOf(props.word); // Get the index of the word
+    const index = props.sentence.indexOf(props.value); // Get the index of the word
     props.onWordClick(index);
     console.log(props.sentence);
   }
@@ -29,7 +29,7 @@ export function SortableItem(props) {
   
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {props.word}
+      {props.value}
     </div>
   );
 }

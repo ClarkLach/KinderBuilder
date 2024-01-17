@@ -49,22 +49,44 @@
   outline: 1px solid black;
 }
 
-.button {
-  background-color: #04AA6D; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
+#submit {
+  position: absolute;
+  bottom: 0%;
+  right: 30%;
+  margin-bottom: 0%;
+  padding: 10px 30px;
+  font-size: 1.5em;
+}
+
+.confirm-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
 }
 
-.button:hover {
+.confirm-popup p {
+  margin-bottom: 10px;
+  width: 33vw; /* Set the width to 33% */
+  word-wrap: break-word; /* Allow the text to wrap within the specified width */
+  white-space: pre-line;
+}
+
+.confirm-popup button {
+  margin: 0 10px;
+  padding: 8px 16px;
   cursor: pointer;
-  background-color: #06d388;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
 }
 
-.button:active {
-  outline: 1px solid #000;
+.confirm-popup button:hover {
+  background-color: #f0f0f0;
 }

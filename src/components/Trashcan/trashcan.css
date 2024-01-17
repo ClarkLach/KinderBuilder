@@ -1,11 +1,11 @@
 .trashcan {
-    width: 20px;
-    height: auto;
-    bottom: 0;
-    left: 25%;
-    position: absolute;
-    background-color: #f4f4f4;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ddd; /* Add border for visibility */
-  }
+  width: 20px;
+  height: auto;
+  bottom: 0;
+  left: 25%;
+  position: absolute;
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd; /* Add border for visibility */
+}

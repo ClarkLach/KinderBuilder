@@ -1,12 +1,15 @@
+import React, {forwardRef} from 'react';
 import "./words.css";
 
-// className here shows correct style when word is being dragged with DragOverlay
-function Item({value}) {
-    return (
-      <div className="word">
-        {value}
-      </div>
-    );
+const Item = forwardRef(({id, onWordClick, ...props}, ref) => {
+  const handleClick = () => {
+    // Call the provided onWordClick function when the word is clicked
+    onWordClick(id);
   };
-  
-  export default Item;
+
+  return (
+    <div {...props} ref={ref} onClick={handleClick} className="word">{id}</div>
+  )
+});
+
+export default Item;

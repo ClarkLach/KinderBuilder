@@ -28,14 +28,12 @@ import {
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import { Draggable } from "../../components/Words/Draggable";
-import { Droppable } from "../../components/Words/Droppable";
 import { SortableItem } from "../../components/Words/SortableItem";
-import { v4 as uuidv4 } from "uuid";
 
 function Game() {
   // Adding/Removing words from sentence
   const [sentence, setSentence] = useState([]);
+  const [count , setCount] = useState(0);
 
   function capitalizeFirstLetter(arr) {
     if (arr.length > 0) {
@@ -54,6 +52,9 @@ function Game() {
     capitalizeFirstLetter(updatedSentence);
     console.log("word added: " + word);
     setSentence(updatedSentence);
+
+    setCount(count + 1);
+    console.log("count: " + count);
   }
 
   function removeWord(index) {
@@ -99,48 +100,45 @@ function Game() {
         return arrayMove(items, oldIndex, newIndex);
       });
     }
+
+    setActiveWord(null);
   }
 
   return (
     <>
-      <DndContext
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        sensors={sensors}
-        collisionDetection={closestCenter}
-      >
-        <div className="sightwords">
-          <div className="title">Sight Words</div>
-          <SortableContext items={sight_words}>
-          {sight_words.map((word) => {
-            return (
-              <Draggable
-                key={word}
-                id={word}
-                word={word}
-                onWordClick={addWordToSentence}
-              >
-                <Item value={word} />
-              </Draggable>
-            );
-          })}
-          </SortableContext>
-        </div>
+      <div className="sightwords">
+        <div className="title">Sight Words</div>
 
-        <div className="sentencebuilder">
-          <div className="title">KinderBuilder</div>
-          <WelcomeUser />
-          <Search words={getWords()} onChange={addWordToSentence} />
+        {sight_words.map((word) => {
+          return (
+            <Item
+              key={word}
+              id={word}
+              value={word}
+              onWordClick={addWordToSentence}
+            />
+          );
+        })}
+      </div>
 
+      <div className="sentencebuilder">
+        <div className="title">KinderBuilder</div>
+        <WelcomeUser />
+        <Search words={getWords()} onChange={addWordToSentence} />
+        <DndContext
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          sensors={sensors}
+          collisionDetection={closestCenter}
+        >
           <div className="sentence-text" sentence={sentence}>
             <SortableContext items={sentence}>
-              {sentence.map((word) => {
-                const id = uuidv4();
+              {sentence.map((word, index) => {
                 return (
                   <SortableItem
-                    key={id}
-                    id={id}
-                    word={word}
+                    key={index}
+                    id={index}
+                    value={word}
                     onWordClick={removeWord}
                     sentence={sentence}
                   />
@@ -148,32 +146,34 @@ function Game() {
               })}
             </SortableContext>
           </div>
+          <DragOverlay>
+            {activeWord ? <Item value={activeWord} /> : null}
+          </DragOverlay>
+        </DndContext>
 
-          <Backend sentence={sentence}/>
+        <Backend sentence={sentence} />
 
-          <Puncuation onWordClick={addWordToSentence} />
-          <SentenceReader sentence={sentence} />
-          <Trashcan clearSentence={clearSentence} />
-        </div>
-        <div className="nouns">
-          {nouns.map((word) => {
-            return (
-              <Draggable
-                key={word}
-                id={word}
-                word={word}
-                onWordClick={addWordToSentence}
-              >
-                <Item value={word} />
-              </Draggable>
-            );
-          })}
-        </div>
+        <Puncuation onWordClick={addWordToSentence} />
+        <SentenceReader sentence={sentence} />
+        <Trashcan clearSentence={clearSentence} />
+      </div>
 
-        <DragOverlay>
-          {activeWord ? <Item value={activeWord} /> : null}
-        </DragOverlay>
-      </DndContext>
+
+      <div className="nouns">
+        <div className="title">Nouns</div>
+        {nouns.map((word) => {
+          return (
+            <Item
+              key={word}
+              id={word}
+              value={word}
+              onWordClick={addWordToSentence}
+            />
+          );
+        })}
+      </div>
+
+      
     </>
   );
 }
