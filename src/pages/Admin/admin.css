@@ -1,0 +1,75 @@
+/* Optional: Apply styles to the entire page if needed */
+.admin {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  min-height: 100vh; /* Ensure at least viewport height */
+  display: flex;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0; /* Optional: Add background color to header */
+}
+
+h2 {
+  margin-bottom: 0; /* Remove margin-bottom to align title with textarea/button */
+}
+
+.admin-ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 0; /* Remove default margin-top for the list */
+}
+
+.admin-li {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+span {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+button {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e60000;
+}
+
+.admin-scrollable-container {
+  max-height: 50vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  width: 40vw; /* Adjust as needed, leaving space for margin between containers */
+}
+
+/* Optional: Style for list items */
+.admin-scrollable-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-scrollable-container li {
+  margin-bottom: 10px;
+}
+
+/* Optional: Style for input and buttons */
+.admin-scrollable-container input,
+.admin-scrollable-container button {
+  margin-left: 10px;
+}

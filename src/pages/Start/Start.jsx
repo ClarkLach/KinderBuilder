@@ -56,6 +56,10 @@ const Start = () => {
       >
         Play!
       </button>
+
+      <button className="adminbutton" id="admin" onClick={() => navigate("/admin")}>
+        Admin
+      </button>
     </div>
   );
 };

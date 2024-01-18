@@ -48,11 +48,11 @@ const Backend = ({ sentence }) => {
       alert("Sentence submitted successfully!");
     } else {
       console.error("Failed to save data");
-      alert("Failed to submit sentence. Error: " + error);
+      alert("Failed to submit sentence1. Error: " + response.statusText);
     }
   } catch (error) {
-    console.error("Error during data save:", error);
-    alert("Failed to submit sentence. Error: " + error);
+    console.error("Error during data save:", error.message);
+    alert("Failed to submit sentence2. Error: " + error.message);
   }
 };
 
