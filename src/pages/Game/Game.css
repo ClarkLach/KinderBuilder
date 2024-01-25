@@ -3,7 +3,7 @@
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
 
-  font-family: 'Arial', sans-serif;
+  font-family: 'Comic Sans MS', sans-serif;
   display: flex;
   justify-content: space-around;
   padding: 20px;

@@ -1,8 +1,40 @@
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from "react-select/creatable";
+import React, { useState, useEffect } from "react";
 import "./search.css";
 
-function Search({words, onChange}) {
-  const arrayElements = words.map((opt) => ({ label: opt, value: opt }));
+const fetchDataFromEndpoint = async (endpoint, setData) => {
+  try {
+    const response = await fetch(`http://kinderbuilder.org/api/${endpoint}`);
+    const data = await response.json();
+    setData(data);
+  } catch (error) {
+    console.error(`Error fetching ${endpoint}:`, error);
+  }
+};
+
+function Search({ onChange }) {
+  const [sightWords, setSightWords] = useState([]);
+  const [nouns, setNouns] = useState([]);
+  const [combinedWords, setCombinedWords] = useState([]);
+
+  useEffect(() => {
+    const fetchWords = async () => {
+      await fetchDataFromEndpoint("sight-words", setSightWords);
+      await fetchDataFromEndpoint("nouns", setNouns);
+    };
+
+    fetchWords();
+  }, []);
+
+  useEffect(() => {
+    // Combine sightWords and nouns into a single array
+    setCombinedWords([...sightWords, ...nouns]);
+  }, [sightWords, nouns]);
+
+  const arrayElements = combinedWords.map((opt) => ({
+    label: opt,
+    value: opt,
+  }));
 
   // Probably can get rid of ./search.css but that's for later
   const customStyles = {
@@ -16,7 +48,7 @@ function Search({words, onChange}) {
       padding: "10px",
       border: "2px solid #fff",
       boxShadow: "5px 5px 5px rgba(0,0,0,0.3)",
-    })
+    }),
   };
 
   // Throws an error but still works so I'll fix later
@@ -25,7 +57,7 @@ function Search({words, onChange}) {
     onChange(newValue);
 
     // Clear the input value after selection
-    if (actionMeta.action === 'select-option') {
+    if (actionMeta.action === "select-option") {
       setSelectedOption(null);
     }
   };
@@ -37,8 +69,8 @@ function Search({words, onChange}) {
         placeholder="Type a word.."
         styles={customStyles}
         options={arrayElements}
-        onChange={opt => handleChange(opt.value, opt.actionMeta)}
-        formatCreateLabel={userInput => ("Add " + userInput)}
+        onChange={(opt) => handleChange(opt.value, opt.actionMeta)}
+        formatCreateLabel={(userInput) => "Add " + userInput}
       />
     </div>
   );

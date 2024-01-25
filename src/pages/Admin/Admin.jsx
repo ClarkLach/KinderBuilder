@@ -5,7 +5,8 @@ const Admin = () => {
   const [sightWords, setSightWords] = useState([]);
   const [nouns, setNouns] = useState([]);
   const [selectedWord, setSelectedWord] = useState('');
-  const [newWordsInput, setNewWordsInput] = useState('');
+  const [newSightInput, setNewSightInput] = useState('');
+  const [newNounsInput, setNewNounsInput] = useState('');
 
   useEffect(() => {
     fetchSightWords();
@@ -61,7 +62,12 @@ const Admin = () => {
   };
 
   const handleAddWords = async (table, listName) => {
-    const wordsArray = newWordsInput.split('\n').filter((word) => word.trim() !== '');
+    let wordsArray;
+    if (table == "sight-words") {
+      wordsArray = newSightInput.split('\n').filter((word) => word.trim() !== '');
+    } else {
+      wordsArray = newNounsInput.split('\n').filter((word) => word.trim() !== '');
+    }
 
     if (wordsArray.length === 0) {
       alert('Please enter at least one word.');
@@ -83,12 +89,38 @@ const Admin = () => {
         } else if (table === 'nouns') {
           fetchNouns();
         }
-        setNewWordsInput('');
+        setNewSightInput('');
+        setNewNounsInput('');
       } else {
         console.error('Failed to add words.');
       }
     } catch (error) {
       console.error('Error adding words:', error);
+    }
+  };
+
+  const handleExportCSV = async () => {
+    try {
+      // Make a request to the backend to trigger CSV export
+      const response = await fetch('/api/export-csv');
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      // Convert the response to a blob
+      const blob = await response.blob();
+
+      // Create a blob and initiate the download
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'exported_data.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Error exporting CSV:', error);
     }
   };
 
@@ -99,9 +131,10 @@ const Admin = () => {
         <div className="admin-header">
           <textarea
             placeholder="Enter words line by line"
-            value={newWordsInput}
-            onChange={(e) => setNewWordsInput(e.target.value)}
+            value={newSightInput}
+            onChange={(e) => setNewSightInput(e.target.value)}
             id="sight-input"
+            key="sight-input"
           />
           <button onClick={() => handleAddWords('sight-words', 'default')}>
             Add New Sight Words
@@ -127,9 +160,10 @@ const Admin = () => {
         <div className="admin-header">
           <textarea
             placeholder="Enter words line by line"
-            value={newWordsInput}
-            onChange={(e) => setNewWordsInput(e.target.value)}
+            value={newNounsInput}
+            onChange={(e) => setNewNounsInput(e.target.value)}
             id="noun-input"
+            key="noun-input"
           />
           <button onClick={() => handleAddWords('nouns', 'default')}>
             Add New Nouns
@@ -149,6 +183,7 @@ const Admin = () => {
           ))}
         </ul>
       </div>
+      <button onClick={() => handleExportCSV()}>Download Sentences</button>
     </div>
   );
 };

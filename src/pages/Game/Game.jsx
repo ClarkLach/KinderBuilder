@@ -1,8 +1,8 @@
 import { useState } from "react";
 import React from "react";
 import "./Game.css";
-import { sight_words } from "../../components/Words/SightWords";
-import { nouns } from "../../components/Words/Nouns";
+import SightWords from "../../components/Words/SightWords";
+import Nouns from "../../components/Words/Nouns";
 import Search from "../../components/Search/Search";
 import Trashcan from "../../components/Trashcan/Trashcan";
 import WelcomeUser from "../../components/WelcomeUser/WelcomeUser";
@@ -33,7 +33,7 @@ import { SortableItem } from "../../components/Words/SortableItem";
 function Game() {
   // Adding/Removing words from sentence
   const [sentence, setSentence] = useState([]);
-  const [count , setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
   function capitalizeFirstLetter(arr) {
     if (arr.length > 0) {
@@ -65,6 +65,8 @@ function Game() {
   }
 
   // Search Functionality
+  const sight_words = []; // Temp
+  const nouns = [];
   function getWords() {
     const all_words = nouns.concat(sight_words);
     const sorted_words = all_words.slice().sort((a, b) => a.localeCompare(b));
@@ -106,25 +108,12 @@ function Game() {
 
   return (
     <>
-      <div className="sightwords">
-        <div className="title">Sight Words</div>
-
-        {sight_words.map((word) => {
-          return (
-            <Item
-              key={word}
-              id={word}
-              value={word}
-              onWordClick={addWordToSentence}
-            />
-          );
-        })}
-      </div>
+      <SightWords addWordToSentence={addWordToSentence}/>
 
       <div className="sentencebuilder">
         <div className="title">KinderBuilder</div>
         <WelcomeUser />
-        <Search words={getWords()} onChange={addWordToSentence} />
+        <Search onChange={addWordToSentence} />
         <DndContext
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
@@ -158,22 +147,7 @@ function Game() {
         <Trashcan clearSentence={clearSentence} />
       </div>
 
-
-      <div className="nouns">
-        <div className="title">Nouns</div>
-        {nouns.map((word) => {
-          return (
-            <Item
-              key={word}
-              id={word}
-              value={word}
-              onWordClick={addWordToSentence}
-            />
-          );
-        })}
-      </div>
-
-      
+      <Nouns addWordToSentence={addWordToSentence} />
     </>
   );
 }
