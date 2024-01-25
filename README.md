@@ -10,11 +10,7 @@ To-Do (1/14/23):
 
 Design-related:
 
-Fix sorting words withing sentence, maybe remove dragging sight words/nouns.
-
-Admin view to change words, export completed sentences
-
-Admin page should have ability to type in needed words, import in bulk possibly. Likely store word lists in one table.
+Fix sorting words that appear more than once within the sentence
 
 
 Back-end-related:
@@ -24,8 +20,6 @@ Store additional info in DB on submit. Currently only do user's name and their s
 Analytics of sentences within the DB, frequently used words, frequent errors, etc (probably a bunch of queries based on sentence content)
 
 User login? (Admin). Students need to be able to just type in a first name, while admins need a page to login.
-
-Store initial words in DB of course
 
 
 Next Major Goals: 
