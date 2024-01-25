@@ -6,7 +6,7 @@ I suspect this is a good opportunity to learn a little frontend (JS, React, Tail
 
 I also hope to use a database for analytics, login, and control over the content on the site.
 
-To-Do (1/14/23): 
+To-Do (1/24/23): 
 
 Design-related:
 
