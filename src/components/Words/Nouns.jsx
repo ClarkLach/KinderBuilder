@@ -7,7 +7,7 @@ const Nouns = ({ addWordToSentence }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://kinderbuilder.org/api/nouns-only");
+        const response = await fetch("/api/nouns-only");
         const data = await response.json();
         setnouns(data);
       } catch (error) {
@@ -21,7 +21,7 @@ const Nouns = ({ addWordToSentence }) => {
   console.log(nouns);
   return (
     <div className="nouns">
-      <div className="title">Nouns</div>
+      <div className="title">Topic Words</div>
       {nouns.map((word) => {
         return (
           <Item

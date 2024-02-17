@@ -29,48 +29,51 @@ const Backend = ({ sentence }) => {
   };
 
   const handleSaveData = async () => {
-  const apiUrl = "http://kinderbuilder.org/api/users";
+    const apiUrl = "/api/users";
 
-  closeConfirmPopup();
+    navigator.clipboard.writeText(finalString)
+      .then(() => console.log('Text copied to clipboard'))
+      .catch(err => console.error('Failed to copy text: ', err));
 
-  try {
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, sentence: finalString }),
-    });
+    closeConfirmPopup();
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Data saved successfully:", data);
-      alert("Sentence submitted successfully!");
-    } else {
-      console.error("Failed to save data");
-      alert("Failed to submit sentence1. Error: " + response.statusText);
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, sentence: finalString }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Data saved successfully:", data);
+        alert("Sentence submitted successfully!");
+      } else {
+        console.error("Failed to save data");
+        alert("Failed to submit sentence1. Error: " + response.statusText);
+      }
+    } catch (error) {
+      console.error("Error during data save:", error.message);
+      alert("Failed to submit sentence2. Error: " + error.message);
     }
-  } catch (error) {
-    console.error("Error during data save:", error.message);
-    alert("Failed to submit sentence2. Error: " + error.message);
-  }
-};
+  };
 
-// Same logic as SentenceReader, disables button if no sentence
-const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  // Same logic as SentenceReader, disables button if no sentence
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-useEffect(() => {
-  checkForSentence(sentence);
-}, [sentence]);
+  useEffect(() => {
+    checkForSentence(sentence);
+  }, [sentence]);
 
-const checkForSentence = (sentence) => {
-  if (sentence && sentence.length > 0) {
-    setIsButtonDisabled(false);
-  } else {
-    setIsButtonDisabled(true);
-  }
-};
-
+  const checkForSentence = (sentence) => {
+    if (sentence && sentence.length > 0) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  };
 
   return (
     <div>

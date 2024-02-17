@@ -64,15 +64,6 @@ function Game() {
     setSentence(updatedSentence);
   }
 
-  // Search Functionality
-  const sight_words = []; // Temp
-  const nouns = [];
-  function getWords() {
-    const all_words = nouns.concat(sight_words);
-    const sorted_words = all_words.slice().sort((a, b) => a.localeCompare(b));
-    return sorted_words;
-  }
-
   // Drag and Drop Functionality
   const [activeWord, setActiveWord] = useState(null);
   const mouseSensor = useSensor(MouseSensor, {

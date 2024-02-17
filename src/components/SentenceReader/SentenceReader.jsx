@@ -26,7 +26,10 @@ function SentenceReader({ sentence }) {
         formattedSentence.push(" " + word);
       }
     });
-
+    // Copies to clipboard
+    navigator.clipboard.writeText(formattedSentence.join(""))
+      .then(() => console.log('Text copied to clipboard'))
+      .catch(err => console.error('Failed to copy text: ', err));
     return user + ":\n\n" + formattedSentence.join("");
   }
 
@@ -52,7 +55,7 @@ function SentenceReader({ sentence }) {
         onClick={openSentencePopup}
         disabled={isButtonDisabled}
       >
-        Read sentence
+        Read/Copy
       </button>
       {isSentenceOpen && (
         <div className="confirm-popup">

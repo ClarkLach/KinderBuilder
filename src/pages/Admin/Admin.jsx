@@ -15,7 +15,7 @@ const Admin = () => {
 
   const fetchSightWords = async () => {
     try {
-      const response = await fetch('http://kinderbuilder.org/api/sight-words');
+      const response = await fetch('/api/sight-words');
       const data = await response.json();
       setSightWords(data);
     } catch (error) {
@@ -25,7 +25,7 @@ const Admin = () => {
 
   const fetchNouns = async () => {
     try {
-      const response = await fetch('http://kinderbuilder.org/api/nouns');
+      const response = await fetch('/api/nouns');
       const data = await response.json();
       setNouns(data);
     } catch (error) {
@@ -38,7 +38,7 @@ const Admin = () => {
 
     if (confirmDelete) {
       try {
-        const response = await fetch(`http://kinderbuilder.org/api/${table}/${id}`, {
+        const response = await fetch(`/api/${table}/${id}`, {
           method: 'DELETE',
         });
 
@@ -75,7 +75,7 @@ const Admin = () => {
     }
 
     try {
-      const response = await fetch(`http://kinderbuilder.org/api/${table}/bulk`, {
+      const response = await fetch(`/api/${table}/bulk`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

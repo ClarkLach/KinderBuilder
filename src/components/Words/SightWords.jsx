@@ -8,7 +8,7 @@ const SightWords = ({ addWordToSentence }) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://kinderbuilder.org/api/sight-words-only"
+          "/api/sight-words-only"
         );
         const data = await response.json();
         setSightWords(data);
