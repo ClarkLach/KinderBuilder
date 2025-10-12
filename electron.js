@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const path = require("path");
+const { app, BrowserWindow } = require("electron");
+const url = require("url");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -12,18 +13,17 @@ function createWindow() {
     },
   });
 
-  if (process.env.NODE_ENV === 'development') {
-    // When running "vite dev", load from localhost
-    win.loadURL('http://localhost:5173');
-    win.webContents.openDevTools();
-  } else {
-    // When packaged, load the built index.html
-    win.loadFile(path.join(__dirname, 'dist', 'index.html'));
-  }
+  // Load dev server in development, or local index.html in production
+  const startUrl = app.isPackaged
+    ? url.pathToFileURL(path.join(process.resourcesPath, "dist", "index.html")).href
+    : "http://localhost:5173";
+
+  win.loadURL(startUrl);
 }
 
 app.whenReady().then(createWindow);
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+// Quit app on all windows closed
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
 });

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./admin.css";
 
 const Admin = () => {
@@ -7,6 +8,7 @@ const Admin = () => {
   const [selectedWord, setSelectedWord] = useState("");
   const [newSightInput, setNewSightInput] = useState("");
   const [newNounsInput, setNewNounsInput] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchSightWords();
@@ -104,6 +106,8 @@ const Admin = () => {
   };
 
   return (
+    <>
+    <button onClick={() => navigate("/game")}>Back to Game</button>
     <div className="admin">
       <div className="admin-scrollable-container" id="sight-edit-container">
         <h2>Sight Words</h2>
@@ -167,6 +171,7 @@ const Admin = () => {
         </ul>
       </div>
     </div>
+    </>
   );
 };
 

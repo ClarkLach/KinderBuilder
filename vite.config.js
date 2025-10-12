@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [react()],
-  proxy: {
-    '/api': 'http://localhost:3001',
+  build: {
+    rollupOptions: {
+      input: path.resolve(__dirname, 'index.html') // ensures Vite treats index.html as the entry
+    }
   }
 })

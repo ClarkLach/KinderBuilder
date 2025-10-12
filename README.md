@@ -1,3 +1,7 @@
+Use ""npm run dev"" for development version.
+
+Use ""npm run build-electron"" to package as an electron application.
+
 This is being created for usage in a kindergarten classroom.
 
 This is a simple webapp that allows users to form sentences from a word bank. Instructors should have fine control over the words and users.
