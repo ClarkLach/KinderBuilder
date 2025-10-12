@@ -1,59 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import './admin.css';
+import { useState, useEffect } from "react";
+import "./admin.css";
 
 const Admin = () => {
   const [sightWords, setSightWords] = useState([]);
   const [nouns, setNouns] = useState([]);
-  const [selectedWord, setSelectedWord] = useState('');
-  const [newSightInput, setNewSightInput] = useState('');
-  const [newNounsInput, setNewNounsInput] = useState('');
+  const [selectedWord, setSelectedWord] = useState("");
+  const [newSightInput, setNewSightInput] = useState("");
+  const [newNounsInput, setNewNounsInput] = useState("");
 
   useEffect(() => {
     fetchSightWords();
     fetchNouns();
   }, []);
 
-  const fetchSightWords = async () => {
+  const fetchSightWords = () => {
     try {
-      const response = await fetch('/api/sight-words');
-      const data = await response.json();
+      const storedData = localStorage.getItem("sight-words");
+      const data = storedData ? JSON.parse(storedData) : [];
       setSightWords(data);
     } catch (error) {
-      console.error('Error fetching sight words:', error);
+      console.error("Error fetching sight words from localStorage:", error);
     }
   };
 
-  const fetchNouns = async () => {
+  const fetchNouns = () => {
     try {
-      const response = await fetch('/api/nouns');
-      const data = await response.json();
+      const storedData = localStorage.getItem("nouns");
+      const data = storedData ? JSON.parse(storedData) : [];
       setNouns(data);
     } catch (error) {
-      console.error('Error fetching nouns:', error);
+      console.error("Error fetching nouns from localStorage:", error);
     }
   };
 
-  const handleDeleteWord = async (table, id) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this word?');
+  const handleDeleteWord = (table, index) => {
+    try {
+      // Get the current list from localStorage
+      const storedData = JSON.parse(localStorage.getItem(table)) || [];
 
-    if (confirmDelete) {
-      try {
-        const response = await fetch(`/api/${table}/${id}`, {
-          method: 'DELETE',
-        });
+      // Remove the word at the given index
+      const updatedData = storedData.filter((_, i) => i !== index);
 
-        if (response.ok) {
-          if (table === 'sight-words') {
-            fetchSightWords();
-          } else if (table === 'nouns') {
-            fetchNouns();
-          }
-        } else {
-          console.error('Failed to delete word.');
-        }
-      } catch (error) {
-        console.error('Error deleting word:', error);
+      // Save the updated list back to localStorage
+      localStorage.setItem(table, JSON.stringify(updatedData));
+
+      // Refresh the state
+      if (table === "sight-words") {
+        fetchSightWords();
+      } else if (table === "nouns") {
+        fetchNouns();
       }
+    } catch (error) {
+      console.error("Error deleting word from localStorage:", error);
     }
   };
 
@@ -61,71 +59,52 @@ const Admin = () => {
     setSelectedWord(word);
   };
 
-  const handleAddWords = async (table, listName) => {
+  const handleAddWords = (table, listName) => {
     let wordsArray;
-    if (table == "sight-words") {
-      wordsArray = newSightInput.split('\n').filter((word) => word.trim() !== '');
+
+    if (table === "sight-words") {
+      wordsArray = newSightInput
+        .split("\n")
+        .filter((word) => word.trim() !== "");
     } else {
-      wordsArray = newNounsInput.split('\n').filter((word) => word.trim() !== '');
+      wordsArray = newNounsInput
+        .split("\n")
+        .filter((word) => word.trim() !== "");
     }
 
     if (wordsArray.length === 0) {
-      alert('Please enter at least one word.');
+      alert("Please enter at least one word.");
       return;
     }
 
     try {
-      const response = await fetch(`/api/${table}/bulk`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ words: wordsArray, list_name: listName }),
-      });
+      // Get existing words from localStorage
+      const existingData = JSON.parse(localStorage.getItem(table)) || [];
 
-      if (response.ok) {
-        if (table === 'sight-words') {
-          fetchSightWords();
-        } else if (table === 'nouns') {
-          fetchNouns();
-        }
-        setNewSightInput('');
-        setNewNounsInput('');
-      } else {
-        console.error('Failed to add words.');
+      // Add the new words
+      const updatedData = [
+        ...existingData,
+        ...wordsArray.map((word) => ({ word, listName })),
+      ];
+
+      // Save back to localStorage
+      localStorage.setItem(table, JSON.stringify(updatedData));
+
+      // Refresh the state
+      if (table === "sight-words") {
+        fetchSightWords();
+        setNewSightInput("");
+      } else if (table === "nouns") {
+        fetchNouns();
+        setNewNounsInput("");
       }
     } catch (error) {
-      console.error('Error adding words:', error);
-    }
-  };
-
-  const handleExportCSV = async () => {
-    try {
-      // Make a request to the backend to trigger CSV export
-      const response = await fetch('/api/export-csv');
-      
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      // Convert the response to a blob
-      const blob = await response.blob();
-
-      // Create a blob and initiate the download
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'exported_data.csv';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    } catch (error) {
-      console.error('Error exporting CSV:', error);
+      console.error("Error adding words to localStorage:", error);
     }
   };
 
   return (
-<div className="admin">
+    <div className="admin">
       <div className="admin-scrollable-container" id="sight-edit-container">
         <h2>Sight Words</h2>
         <div className="admin-header">
@@ -136,20 +115,22 @@ const Admin = () => {
             id="sight-input"
             key="sight-input"
           />
-          <button onClick={() => handleAddWords('sight-words', 'default')}>
+          <button onClick={() => handleAddWords("sight-words", "default")}>
             Add New Sight Words
           </button>
         </div>
-        <ul className='admin-ul'>
-          {sightWords.map((word) => (
-            <li key={word.id} className='admin-li'>
+        <ul className="admin-ul">
+          {sightWords.map((word, index) => (
+            <li key={index} className="admin-li">
               <span
-                className={selectedWord === word.word ? 'selected-word' : ''}
+                className={selectedWord === word.word ? "selected-word" : ""}
                 onClick={() => handleSelectWord(word.word)}
               >
                 {word.word}
               </span>
-              <button onClick={() => handleDeleteWord('sight-words', word.id)}>Delete</button>
+              <button onClick={() => handleDeleteWord("sight-words", index)}>
+                Delete
+              </button>
             </li>
           ))}
         </ul>
@@ -165,25 +146,26 @@ const Admin = () => {
             id="noun-input"
             key="noun-input"
           />
-          <button onClick={() => handleAddWords('nouns', 'default')}>
+          <button onClick={() => handleAddWords("nouns", "default")}>
             Add New Nouns
           </button>
         </div>
         <ul className="admin-ul">
-          {nouns.map((word) => (
-            <li key={word.id} className="admin-li">
+          {nouns.map((word, index) => (
+            <li key={index} className="admin-li">
               <span
-                className={selectedWord === word.word ? 'selected-word' : ''}
+                className={selectedWord === word.word ? "selected-word" : ""}
                 onClick={() => handleSelectWord(word.word)}
               >
                 {word.word}
               </span>
-              <button onClick={() => handleDeleteWord('nouns', word.id)}>Delete</button>
+              <button onClick={() => handleDeleteWord("nouns", index)}>
+                Delete
+              </button>
             </li>
           ))}
         </ul>
       </div>
-      <button onClick={() => handleExportCSV()}>Download Sentences</button>
     </div>
   );
 };

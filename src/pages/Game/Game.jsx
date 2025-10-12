@@ -1,15 +1,11 @@
 import { useState } from "react";
-import React from "react";
 import "./Game.css";
 import SightWords from "../../components/Words/SightWords";
 import Nouns from "../../components/Words/Nouns";
 import Search from "../../components/Search/Search";
 import Trashcan from "../../components/Trashcan/Trashcan";
-import WelcomeUser from "../../components/WelcomeUser/WelcomeUser";
 import Puncuation from "../../components/Puncuation/Puncuation";
-import SentenceReader from "../../components/SentenceReader/SentenceReader";
 import Item from "../../components/Words/Item";
-import Backend from "../../components/Backend/Backend";
 
 // dnd-kit imports
 import {
@@ -24,8 +20,6 @@ import {
 import {
   arrayMove,
   SortableContext,
-  sortableKeyboardCoordinates,
-  rectSortingStrategy,
 } from "@dnd-kit/sortable";
 
 import { SortableItem } from "../../components/Words/SortableItem";
@@ -103,7 +97,6 @@ function Game() {
 
       <div className="sentencebuilder">
         <div className="title">KinderBuilder</div>
-        <WelcomeUser />
         <Search onChange={addWordToSentence} />
         <DndContext
           onDragStart={handleDragStart}
@@ -111,7 +104,7 @@ function Game() {
           sensors={sensors}
           collisionDetection={closestCenter}
         >
-          <div className="sentence-text" sentence={sentence}>
+          <div className="sentence-text">
             <SortableContext items={sentence}>
               {sentence.map((word, index) => {
                 return (
@@ -131,10 +124,7 @@ function Game() {
           </DragOverlay>
         </DndContext>
 
-        <Backend sentence={sentence} />
-
         <Puncuation onWordClick={addWordToSentence} />
-        <SentenceReader sentence={sentence} />
         <Trashcan clearSentence={clearSentence} />
       </div>
 

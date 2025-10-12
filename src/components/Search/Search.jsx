@@ -1,5 +1,5 @@
 import CreatableSelect from "react-select/creatable";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./search.css";
 
 const fetchDataFromEndpoint = async (endpoint, setData) => {

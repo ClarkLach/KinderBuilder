@@ -1,37 +1,44 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Item from "./Item";
 
 const Nouns = ({ addWordToSentence }) => {
-  const [nouns, setnouns] = useState([]);
+  const [nouns, setNouns] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    // Load nouns from localStorage
+    const storedData = localStorage.getItem("nouns");
+    if (storedData) {
       try {
-        const response = await fetch("/api/nouns-only");
-        const data = await response.json();
-        setnouns(data);
+        const parsed = JSON.parse(storedData);
+        // If items are objects like { word, listName }, extract just the word text
+        const wordsOnly = parsed.map((entry) =>
+          typeof entry === "string" ? entry : entry.word
+        );
+        setNouns(wordsOnly);
       } catch (error) {
-        console.error("Error fetching nouns:", error);
+        console.error("Error parsing nouns from localStorage:", error);
       }
-    };
+    } else {
+      setNouns([]); // No words yet
+    }
+  }, []); // Run once on mount
 
-    fetchData();
-  }, []); // The empty dependency array ensures that this effect runs once after the initial render
-
-  console.log(nouns);
   return (
     <div className="nouns">
       <div className="title">Topic Words</div>
-      {nouns.map((word) => {
-        return (
+
+      {nouns.length === 0 ? (
+        <div className="empty">No topic words available.</div>
+      ) : (
+        nouns.map((index, word) => (
           <Item
-            key={word}
-            id={word}
+            key={index}
+            id={index}
             value={word}
             onWordClick={addWordToSentence}
           />
-        );
-      })}
+        ))
+      )}
     </div>
   );
 };

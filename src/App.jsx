@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Game from './pages/Game/Game';
 import Start from './pages/Start/Start';

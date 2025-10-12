@@ -1,41 +1,44 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Item from "./Item";
 
 const SightWords = ({ addWordToSentence }) => {
   const [sightWords, setSightWords] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    // Load words from localStorage
+    const storedData = localStorage.getItem("sight-words");
+    if (storedData) {
       try {
-        const response = await fetch(
-          "/api/sight-words-only"
+        const parsed = JSON.parse(storedData);
+        // If you stored objects like { word, listName }, map to just the word text
+        const wordsOnly = parsed.map((entry) =>
+          typeof entry === "string" ? entry : entry.word
         );
-        const data = await response.json();
-        setSightWords(data);
+        setSightWords(wordsOnly);
       } catch (error) {
-        console.error("Error fetching sight words:", error);
+        console.error("Error parsing sight words from localStorage:", error);
       }
-    };
-
-    fetchData();
-  }, []); // The empty dependency array ensures that this effect runs once after the initial render
-
-  console.log(sightWords);
+    } else {
+      setSightWords([]); // No words yet
+    }
+  }, []); // Run once on mount
 
   return (
     <div className="sightwords">
       <div className="title">Sight Words</div>
 
-      {sightWords.map((word) => {
-        return (
+      {sightWords.length === 0 ? (
+        <div className="empty">No sight words available.</div>
+      ) : (
+        sightWords.map((index, word) => (
           <Item
-            key={word}
-            id={word}
+            key={index}
+            id={index}
             value={word}
             onWordClick={addWordToSentence}
           />
-        );
-      })}
+        ))
+      )}
     </div>
   );
 };
