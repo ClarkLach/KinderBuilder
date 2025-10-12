@@ -6,6 +6,7 @@ import Search from "../../components/Search/Search";
 import Trashcan from "../../components/Trashcan/Trashcan";
 import Puncuation from "../../components/Puncuation/Puncuation";
 import Item from "../../components/Words/Item";
+import SentenceReader from "../../components/SentenceReader/SentenceReader";
 
 // dnd-kit imports
 import {
@@ -125,6 +126,7 @@ function Game() {
         </DndContext>
 
         <Puncuation onWordClick={addWordToSentence} />
+        <SentenceReader sentence={sentence} />
         <Trashcan clearSentence={clearSentence} />
       </div>
 

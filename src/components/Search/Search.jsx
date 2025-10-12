@@ -1,16 +1,6 @@
 import CreatableSelect from "react-select/creatable";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./search.css";
-
-const fetchDataFromEndpoint = async (endpoint, setData) => {
-  try {
-    const response = await fetch(`http://kinderbuilder.org/api/${endpoint}`);
-    const data = await response.json();
-    setData(data);
-  } catch (error) {
-    console.error(`Error fetching ${endpoint}:`, error);
-  }
-};
 
 function Search({ onChange }) {
   const [sightWords, setSightWords] = useState([]);
@@ -18,16 +8,16 @@ function Search({ onChange }) {
   const [combinedWords, setCombinedWords] = useState([]);
 
   useEffect(() => {
-    const fetchWords = async () => {
-      await fetchDataFromEndpoint("sight-words", setSightWords);
-      await fetchDataFromEndpoint("nouns", setNouns);
-    };
+    // Fetch words from localStorage
+    const storedSightWords = JSON.parse(localStorage.getItem("sight-words") || "[]");
+    const storedNouns = JSON.parse(localStorage.getItem("nouns") || "[]");
 
-    fetchWords();
+    // Both sightWords and nouns are objects { word, listName }, so extract word
+    setSightWords(storedSightWords.map((w) => w.word));
+    setNouns(storedNouns.map((w) => w.word));
   }, []);
 
   useEffect(() => {
-    // Combine sightWords and nouns into a single array
     setCombinedWords([...sightWords, ...nouns]);
   }, [sightWords, nouns]);
 
@@ -36,13 +26,11 @@ function Search({ onChange }) {
     value: opt,
   }));
 
-  // Probably can get rid of ./search.css but that's for later
   const customStyles = {
     option: (defaultStyles) => ({
       ...defaultStyles,
       textAlign: "center",
     }),
-
     control: (defaultStyles) => ({
       ...defaultStyles,
       padding: "10px",
@@ -51,15 +39,9 @@ function Search({ onChange }) {
     }),
   };
 
-  // Throws an error but still works so I'll fix later
-  const handleChange = (newValue) => {
-    // Handle the selected option
-    onChange(newValue);
-
-    // Clear the input value after selection
-    if (actionMeta.action === "select-option") {
-      setSelectedOption(null);
-    }
+  const handleChange = (selectedOption) => {
+    if (!selectedOption) return;
+    onChange(selectedOption.value);
   };
 
   return (
@@ -69,7 +51,7 @@ function Search({ onChange }) {
         placeholder="Type a word.."
         styles={customStyles}
         options={arrayElements}
-        onChange={(opt) => handleChange(opt.value, opt.actionMeta)}
+        onChange={handleChange}
         formatCreateLabel={(userInput) => "Add " + userInput}
       />
     </div>

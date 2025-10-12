@@ -105,9 +105,29 @@ const Admin = () => {
     }
   };
 
+  const handleDownloadSentences = () => {
+    const savedSentences = JSON.parse(localStorage.getItem("savedSentences") || "[]");
+    if (savedSentences.length === 0) {
+      alert("No saved sentences found!");
+      return;
+    }
+
+    // Join sentences with newlines, no quotes
+    const csvContent = "data:text/csv;charset=utf-8," + savedSentences.join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "sentences.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
     <button onClick={() => navigate("/game")}>Back to Game</button>
+    <button onClick={handleDownloadSentences}>Download Sentences CSV</button>
     <div className="admin">
       <div className="admin-scrollable-container" id="sight-edit-container">
         <h2>Sight Words</h2>
