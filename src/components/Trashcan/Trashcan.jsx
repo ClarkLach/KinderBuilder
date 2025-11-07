@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./trashcan.css";
 import trashcan from "../../assets/trashcan.png";
 
-function Trashcan({ clearSentence }) {
+function Trashcan({ clearSentence, popupString, useLocalStyles = true }) {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const openConfirmPopup = () => {
@@ -24,7 +24,7 @@ function Trashcan({ clearSentence }) {
       
       {isConfirmOpen && (
         <div className="confirm-popup">
-          <p>Are you sure you want to delete?</p>
+          <p>{popupString}</p>
           <button onClick={handleDelete}>Yes</button>
           <button onClick={closeConfirmPopup}>No</button>
         </div>

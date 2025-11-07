@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./admin.css";
+import Trashcan from "../../components/Trashcan/Trashcan";
 
 const Admin = () => {
   const [sightWords, setSightWords] = useState([]);
@@ -124,10 +125,33 @@ const Admin = () => {
     document.body.removeChild(link);
   };
 
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  
+    const openConfirmPopup = () => {
+      setIsConfirmOpen(true);
+    };
+  
+    const closeConfirmPopup = () => {
+      setIsConfirmOpen(false);
+    };
+
+  const deleteOldSentences = () => {
+    localStorage.removeItem("savedSentences");
+    closeConfirmPopup(); // Close the confirmation popup
+  };
+
   return (
     <>
-    <button onClick={() => navigate("/game")}>Back to Game</button>
+    <button onClick={() => navigate("/")}>Back</button>
     <button onClick={handleDownloadSentences}>Download Sentences CSV</button>
+    <button onClick={openConfirmPopup}>Delete All Saved Sentences</button>
+    {isConfirmOpen && (
+        <div className="confirm-popup">
+          <p>Are you sure you want to delete all saved sentences? This action cannot be undone.</p>
+          <button onClick={deleteOldSentences}>Yes</button>
+          <button onClick={closeConfirmPopup}>No</button>
+        </div>
+    )}
     <div className="admin">
       <div className="admin-scrollable-container" id="sight-edit-container">
         <h2>Sight Words</h2>

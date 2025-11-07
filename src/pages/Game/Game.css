@@ -2,7 +2,6 @@
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-
   font-family: 'Comic Sans MS', sans-serif;
   display: flex;
   justify-content: space-around;
@@ -76,6 +75,9 @@
   width: 33vw; /* Set the width to 33% */
   word-wrap: break-word; /* Allow the text to wrap within the specified width */
   white-space: pre-line;
+  user-select: text; /* Allow text selection */
+  -ms-user-select: text; /* IE 10 and IE 11 */
+  -webkit-user-select: text; /* Safari */
 }
 
 .confirm-popup button {
@@ -89,4 +91,11 @@
 
 .confirm-popup button:hover {
   background-color: #f0f0f0;
+}
+
+.back-button {
+  bottom: 0;
+  left: 0%;
+  position: absolute;
+  background-color: grey;
 }

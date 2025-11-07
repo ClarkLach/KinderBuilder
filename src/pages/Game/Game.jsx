@@ -7,6 +7,7 @@ import Trashcan from "../../components/Trashcan/Trashcan";
 import Puncuation from "../../components/Puncuation/Puncuation";
 import Item from "../../components/Words/Item";
 import SentenceReader from "../../components/SentenceReader/SentenceReader";
+import { useNavigate } from "react-router-dom";
 
 // dnd-kit imports
 import {
@@ -29,6 +30,7 @@ function Game() {
   // Adding/Removing words from sentence
   const [sentence, setSentence] = useState([]);
   const [count, setCount] = useState(0);
+  const navigate = useNavigate();
 
   function capitalizeFirstLetter(arr) {
     if (arr.length > 0) {
@@ -126,8 +128,9 @@ function Game() {
         </DndContext>
 
         <Puncuation onWordClick={addWordToSentence} />
+        <button onClick={() => navigate("/")} className="back-button">Back</button>
         <SentenceReader sentence={sentence} />
-        <Trashcan clearSentence={clearSentence} />
+        <Trashcan clearSentence={clearSentence} popupString="Are you sure you want to delete?" />
       </div>
 
       <Nouns addWordToSentence={addWordToSentence} />
